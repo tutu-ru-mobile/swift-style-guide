@@ -369,7 +369,7 @@ class Circle: Shape {
   var radius: Double
   var diameter: Double {
     get {
-      return radius * 2
+      radius * 2
     }
     set {
       radius = newValue / 2
@@ -387,16 +387,16 @@ class Circle: Shape {
   }
 
   override func area() -> Double {
-    return Double.pi * radius * radius
+    Double.pi * radius * radius
   }
 }
 
 extension Circle: CustomStringConvertible {
   var description: String {
-    return "center = \(centerString) area = \(area())"
+    "center = \(centerString) area = \(area())"
   }
   private var centerString: String {
-    return "(\(x),\(y))"
+    "(\(x),\(y))"
   }
 }
 ```
@@ -424,7 +424,7 @@ For conciseness, if a computed property is read-only, omit the get clause. The g
 **Preferred**:
 ```swift
 var diameter: Double {
-  return radius * 2
+  radius * 2
 }
 ```
 
@@ -479,7 +479,7 @@ Don't use `(Void)` to represent the lack of an input; simply use `()`. Use `Void
 **Preferred**:
 
 ```swift
-func updateConstraints() -> Void {
+func updateConstraints() {
   // magic happens here
 }
 
@@ -489,6 +489,10 @@ typealias CompletionHandler = (result) -> Void
 **Not Preferred**:
 
 ```swift
+func updateConstraints() -> Void {
+  // magic happens here
+}
+
 func updateConstraints() -> () {
   // magic happens here
 }
@@ -792,9 +796,7 @@ Extend object lifetime using the `[weak self]` and `guard let self = self else {
 **Preferred**
 ```swift
 resource.request().onComplete { [weak self] response in
-  guard let self = self else {
-    return
-  }
+  guard let self = self else { return }
   let model = self.updateModel(response)
   self.updateUI(model)
 }
